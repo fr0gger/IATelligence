@@ -44,6 +44,102 @@ The script will also calculate the hashes as well as the estimated cost of the r
 [!] Estimated cost of requests: $0.0693
 ```
 
+The result can be visualize in a table. Below is a truncated extract.
+
+```
++------------------------------------------+-----------------------------+------------------------------------------+
+| Libraries                                | API                         | GPT Verdict                              |
++------------------------------------------+-----------------------------+------------------------------------------+
+| SHELL32.dll                              | ShellExecuteW               | The purpose of this API, ShellExecuteW,  |
+|                                          |                             | is to launch an application or open a    |
+|                                          |                             | file in the Windows operating system. It |
+|                                          |                             | is associated with MITRE ATT&CK          |
+|                                          |                             | technique T1218 - Execution Through      |
+|                                          |                             | Module Load. This technique involves     |
+|                                          |                             | using shell32.dll to execute malicious   |
+|                                          |                             | code without directly invoking the       |
+|                                          |                             | executable file itself, which can help   |
+|                                          |                             | attackers evade detection and gain       |
+|                                          |                             | access to systems.                       |
+|                                          |                             |                                          |
+| KERNEL32.dll                             | GetCurrentThreadId          | The purpose of this API is to retrieve   |
+|                                          |                             | the identifier of the calling thread. It |
+|                                          |                             | is associated with MITRE ATT&CK          |
+|                                          |                             | technique T1155 - Thread Execution,      |
+|                                          |                             | which involves creating and running      |
+|                                          |                             | threads within a process or code         |
+|                                          |                             | injection into an existing thread. The   |
+|                                          |                             | GetCurrentThreadId() function allows     |
+|                                          |                             | attackers to identify and target         |
+|                                          |                             | specific threads for malicious           |
+|                                          |                             | activities.                              |
+|                                          |                             |                                          |
+| KERNEL32.dll                             | GetSystemTimeAsFileTime     | The purpose of this API is to retrieve   |
+|                                          |                             | the current system time as a file time   |
+|                                          |                             | format. It is associated with the MITRE  |
+|                                          |                             | ATT&CK technique T1124 - System Time     |
+|                                          |                             | Discovery, which is used by adversaries  |
+|                                          |                             | to gain insight into when certain        |
+|                                          |                             | activities occurred or are scheduled to  |
+|                                          |                             | occur. This allows them to perform       |
+|                                          |                             | timing-based attacks and evade           |
+|                                          |                             | detection.                               |
+|                                          |                             |                                          |
+| KERNEL32.dll                             | GetTickCount                | The purpose of this API is to retrieve   |
+|                                          |                             | the number of milliseconds since Windows |
+|                                          |                             | was started. It is associated with MITRE |
+|                                          |                             | ATT&CK technique T1082 - System Time     |
+|                                          |                             | Discovery, which involves an adversary   |
+|                                          |                             | querying system information to gain      |
+|                                          |                             | insight into file and system times or to |
+|                                          |                             | determine valid accounts. This can be    |
+|                                          |                             | used for various malicious activities    |
+|                                          |                             | such as enumeration, credential dumping, |
+|                                          |                             | and lateral movement.                    |
+|                                          |                             |                                          |
+| KERNEL32.dll                             | RtlCaptureContext           | The purpose of this API is to capture    |
+|                                          |                             | the Context Record of a thread in order  |
+|                                          |                             | to provide information about its state.  |
+|                                          |                             | This can be used for debugging, logging  |
+|                                          |                             | or other purposes. The associated MITRE  |
+|                                          |                             | ATT&CK technique is T1113 - Process      |
+|                                          |                             | Injection, as this API can be used to    |
+|                                          |                             | inject code into a running process.      |
+|                                          |                             |                                          |
+| KERNEL32.dll                             | GetCurrentProcessId         | The purpose of this API is to retrieve   |
+|                                          |                             | the current process identifier (PID) for |
+|                                          |                             | a process running on Windows. This can   |
+|                                          |                             | be used to identify which processes are  |
+|                                          |                             | currently active and running on a        |
+|                                          |                             | system. It is associated with MITRE      |
+|                                          |                             | ATT&CK technique T1057 - Process         |
+|                                          |                             | Discovery, as it allows an adversary to  |
+|                                          |                             | gain knowledge about the processes that  |
+|                                          |                             | are running on a system.                 |
+|                                          |                             |                                          |
+| KERNEL32.dll                             | RtlVirtualUnwind            | The purpose of this API is to provide an |
+|                                          |                             | unwinding mechanism that can be used to  |
+|                                          |                             | traverse the stack frames of a program.  |
+|                                          |                             | It is associated with the MITRE ATT&CK   |
+|                                          |                             | technique called "Stack Walking"         |
+|                                          |                             | (T1063). This technique involves using   |
+|                                          |                             | APIs like RtlVirtualUnwind() to walk     |
+|                                          |                             | through the stack frames, which can help |
+|                                          |                             | attackers gain access to sensitive       |
+|                                          |                             | information or bypass security controls. |
+|                                          |                             |                                          |
+| KERNEL32.dll                             | UnhandledExceptionFilter    | The purpose of this API is to provide an |
+|                                          |                             | exception handler for unhandled          |
+|                                          |                             | exceptions in the Windows operating      |
+|                                          |                             | system. It is associated with the MITRE  |
+|                                          |                             | ATT&CK technique T1136 - Create or       |
+|                                          |                             | Modify System Process, as it allows a    |
+|                                          |                             | program to be able to handle unexpected  |
+|                                          |                             | events that may occur during its         |
+|                                          |                             | execution.                               |
+```
+
+
 # Limitations
 The cost of using OpenAI's GPT-3 to analyze the imported Windows APIs in a PE file can vary depending on the size of the IAT. While the cost of individual requests is not expensive, the total cost can quickly add up for larger files. The estimated cost provided by the script is an approximation and may vary.
 
